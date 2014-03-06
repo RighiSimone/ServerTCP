@@ -8,6 +8,12 @@ import java.util.logging.Logger;
 public class EchoThread extends Thread {
 
     private Socket s;
+    private String inFromUser;
+    
+    /**
+     * Di Default la stringa inviata è uguale a quella ricevuta
+     */
+    private boolean isUpperCase = false;
 
     public EchoThread(Socket s) {
 
@@ -21,7 +27,49 @@ public class EchoThread extends Thread {
             PrintWriter out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()), true);
             
             while (true) {
-                out.println(in.readLine());
+                
+                /**
+                 * Acquisisco la Stringa
+                 */
+                inFromUser = in.readLine();
+                
+                /**
+                 * Se la stringa che viene ricevuta equivale a "Fine"
+                 */
+                if(inFromUser.equalsIgnoreCase("fine")){
+                    out.println("Connessione terminata!");
+                    /**
+                     * W.I.P. Qua la terminazione della connessione
+                     */
+                    // Errato: this.interrupt();
+                }
+                
+                /**
+                 * Maiuscolo : on
+                 */
+                else if(inFromUser.equalsIgnoreCase("Maiuscolo: on")){
+                    isUpperCase = true;
+                    out.println("Maiuscolo attivato!");
+                }
+                
+                /**
+                 * Maiuscolo : off
+                 */
+                else if(inFromUser.equalsIgnoreCase("Maiuscolo: off")){
+                    isUpperCase = false;
+                    out.println("Maiuscolo disattivato!");
+                }
+                
+                /**
+                 * Se non è nessuno dei casi precedenti
+                 */
+                else {
+                    if(isUpperCase){
+                        out.println(inFromUser.toUpperCase());
+                    }else{
+                        out.println(inFromUser);
+                    }
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(EchoThread.class.getName()).log(Level.SEVERE, null, ex);
