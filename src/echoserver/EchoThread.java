@@ -37,11 +37,7 @@ public class EchoThread extends Thread {
                  * Se la stringa che viene ricevuta equivale a "Fine"
                  */
                 if(inFromUser.equalsIgnoreCase("fine")){
-                    out.println("Connessione terminata!");
-                    /**
-                     * W.I.P. Qua la terminazione della connessione
-                     */
-                    // Errato: this.interrupt();
+                    out.println("Terminato");
                 }
                 
                 /**

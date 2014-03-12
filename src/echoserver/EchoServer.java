@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 
 public class EchoServer {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException,NullPointerException {
 
         ServerSocket ss = new ServerSocket(6666);
         while (true) {
